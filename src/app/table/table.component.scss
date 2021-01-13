@@ -1,0 +1,27 @@
+.table{
+    display: flex;
+}
+
+
+.el{
+padding: 10px;
+text-align: center;
+}
+
+.t{
+    padding-top: 24px; padding-bottom: 20px;
+}
+
+.border{
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.bottom
+{
+    border-bottom: 4px solid black;
+}
+.hide
+{
+    display: none;
+}

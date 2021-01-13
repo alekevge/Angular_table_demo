@@ -1,0 +1,94 @@
+<p>table works!</p>
+
+<div style="display:grid; grid-template-columns: 150px auto;">
+    <div>
+        <div *ngFor="let header of head">
+            <input  type="checkbox" checked (change)="on_change_visibility(header.name)">
+            <label > {{header.name}}</label>
+
+            <div *ngIf="header['sub-head']" style="padding-left: 20px;">
+                <div *ngFor="let subheader of header['sub-head']">
+                    <input  type="checkbox" checked (change)="on_change_visibility(subheader.name)">
+                    <label > {{subheader.name}}</label>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div style="display: grid;">
+
+
+        <div style="display: flex; align-items: stretch;">
+        <div *ngFor="let header of head let i=index" [ngClass]="{'hide':visibility_hiden[header.name]!==undefined}" 
+        
+        style="      flex-grow:1; text-align: center; border-top:4px solid black; border-bottom:4px solid black; ">
+            <div class="el border" [ngClass]="{'t':header['sub-head']==undefined, 'bottom':true}" style="white-space: pre;">
+                {{header.name}}
+                <div *ngIf="header['sub-head']==undefined" style="">
+                    <br >
+                </div>
+                
+            </div>
+        
+            <div *ngIf="header['sub-head'];else elseBlock" style="display: flex; ">
+        
+                <div  *ngFor="let subheader of header['sub-head'], let i=index" [ngClass]="{'hide':visibility_hiden[subheader.name]!=undefined}"  style="    flex-grow: 1;">
+                 
+         
+
+                       
+                    
+                            <div class="el border bottom">
+                                {{subheader.name}}    
+                            
+                            </div>
+                            <div style="display: grid;">
+                                <div *ngFor="let str of data"  style="display: inline;">
+            
+                                    <div class="el border" *ngIf="str[subheader.name];else elseBlock">
+                                        {{str[subheader.name]}}
+                                    </div>
+                                    <ng-template #elseBlock>
+                                    <div class="el border">
+                                        -
+                                    </div>
+                                        
+                                    </ng-template>
+                                </div>
+         
+                    </div>
+                </div>
+        
+            </div>
+            <ng-template #elseBlock>
+                <div style="display: grid;">
+                            <div *ngFor="let str of data"  style="display: inline;">
+        
+                    <div class="el border" *ngIf="str[header.name];else elseBlock">
+                        {{str[header.name]}}
+                    </div>
+                    <ng-template #elseBlock>
+                    <div class="el border">
+                        -
+                    </div>
+                        
+                    </ng-template>
+                </div>    
+            </div>
+        
+            </ng-template>
+        
+        </div>
+        </div>
+        </div>  
+    
+</div>
+
+
+
+<button (click)="on_update()">
+Update
+</button>
