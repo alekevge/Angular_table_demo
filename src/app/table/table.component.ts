@@ -19,8 +19,7 @@ head:any[]=[]
 
   on_update()
   {
-    console.log("0")
-    this.http.get("/assets/data.json",).subscribe((res)=>{console.warn("ress",res);this.head=res['head']; this.data=res['data']}, (er)=>{console.error("http_fails",er)})
+    this.http.get(window.location.href +"/assets/data.json",).subscribe((res)=>{console.warn("ress",res);this.head=res['head']; this.data=res['data']}, (er)=>{console.error("http_fails",er)})
   }
 
 
@@ -33,7 +32,7 @@ head:any[]=[]
     {
       this.visibility_hiden[elem]=undefined
 
-      if (this.visibility_hiden[header.name]===null)
+      if (header && this.visibility_hiden[header.name]===null)
       {
         this.visibility_hiden[header.name]=undefined
       }
@@ -44,11 +43,14 @@ head:any[]=[]
 
       this.visibility_hiden[elem]=true
       let key = true
-      header['sub-head'].forEach(el => {
-        //if (this.visibility_hiden[el.name]!==true)
-        key=key&&this.visibility_hiden[el.name] 
-      });
-      if (key) this.visibility_hiden[header.name]=null
+      if (header && header['sub-head'])
+      {
+        header['sub-head'].forEach(el => {
+          //if (this.visibility_hiden[el.name]!==true)
+          key=key&&this.visibility_hiden[el.name] 
+        });
+        if (key) this.visibility_hiden[header.name]=null
+      }
     }
 
     
